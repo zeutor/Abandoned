@@ -18,16 +18,16 @@ namespace mapManager {
 	"ggggggGggggggggggggg",
 	};
 	sf::String mapObjCode[10] = {
-	"   g          b     ",
-	"      m          m  ",
-	"                    ",
-	"        b           ",
-	"                    ",
-	"    b            m  ",
-	"      g     b       ",
-	"               g    ",
-	"        b           ",
-	"            m       ",
+	"     b             ",
+	"     b             ",
+	"     b             ",
+	"bbbb    bbbb       ",
+	"                   ",
+	"     b             ",
+	"                   ",
+	"                   ",
+	"                   ",
+	"      b            ",
 	};
 	sf::Texture imgSource;
 
