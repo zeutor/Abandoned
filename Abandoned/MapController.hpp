@@ -11,35 +11,43 @@ class MapController
 {
 private:
 	MapController() = default;
+
 	sf::Vector2i _mapSize;
 	static MapController* _mapController;
-	sf::Texture _tileSet;
+	unsigned int _numOfTileSets;
+	sf::Texture* _tileSet;
+	sf::Vector2i* _tileSetSizes;
+	sf::Vector2i _playerStartPosition;
+
 	//Две таблицы карты:
 	//1. Поверхность
 	//2. Надземные объекты
-	int** _activeMap[2];
-	//Список ID объектов на карте, через которые игрок не может пройти
-	static std::unordered_set<int> idOfCollisionObjs;
-	//Список ID и соответствующих им координатам на tileSet'е текстур земли
-	static std::unordered_map<int, sf::Vector2i> idOfGroundTextures;
-	//Список ID и соответствующих им координатам на tileSet'е текстур объектов
-	static std::unordered_map<int, sf::Vector2i> idOfObjsTextures;
+	//3. Объекты-коллизии
+	int** _activeMap[3];
+
 public:
 	MapController(MapController const&) = delete;
 	void operator= (MapController const&) = delete;
 
-	static void getInfoFromFile();
 	static MapController* getController();
-
+	
 	sf::Vector2i getMapSize();
 
 	//Для direction: 0 - UP, 1 - RIGHT, 2 - DOWN, 3 - LEFT
 	//True если есть объект по наравлению
 	bool checkCollision(int direction, sf::Vector2f characterPosition);
+
 	void getMap(const char* mapTitle);
+
 	//Для отрисовки поверхности слой 0, а для объектов 1
-	void drawMap(sf::RenderWindow& window, int mapLayToDraw);
+	void drawMap(sf::RenderWindow& window, int mapLayToDraw, int rowToDraw = -1);
+
+	void loadObstacles();
+
+	bool isInMapPosition(sf::Vector2i position);
 
 	bool isCollisionObjOnPos(sf::Vector2i position);
+
+	sf::Vector2i getPlayerStartPosition();
 };
 
